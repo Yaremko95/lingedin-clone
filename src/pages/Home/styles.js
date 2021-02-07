@@ -2,7 +2,8 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: "#F3F2EF",
-    marginTop: "64px",
+    paddingTop: theme.spacing(4),
+    width: "60%",
+    margin: "auto",
   },
 }));

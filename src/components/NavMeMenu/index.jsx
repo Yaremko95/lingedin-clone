@@ -32,7 +32,7 @@ function NavMeOptions(props) {
             <Typography variant={"body2"}>web developer</Typography>
           </div>
         </div>
-        <Button variant="outlined" color="primary">
+        <Button variant="outlined" color="primary" style={{ width: "100%" }}>
           View Profile
         </Button>
       </div>

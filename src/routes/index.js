@@ -1,6 +1,6 @@
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
-import Profile from "../pages/Profile";
+import Home from "../pages/Home/Home";
+import Profile from "../pages/Profile/Profile";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 

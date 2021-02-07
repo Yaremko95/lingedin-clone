@@ -10,8 +10,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   contentWrapper: {
     margin: "auto",
-    padding: theme.spacing(1, 0, 1, 0),
-    width: "60%",
+    // padding: theme.spacing(1, 0, 1, 0),
+    width: "55%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
