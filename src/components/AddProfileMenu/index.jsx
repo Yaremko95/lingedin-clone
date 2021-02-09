@@ -1,58 +1,39 @@
 import React, { useContext } from "react";
 import Modal from "../Modal";
 import { AuthContext } from "../../context/Auth";
+import Popper from "@material-ui/core/Popper";
+import Fade from "@material-ui/core/Fade";
+import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
+import uniqid from "uniqid";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 function AddProfileMenu(props) {
-  const { user, isAuthorized, getUser } = useContext(AuthContext);
+  const { user, getUser } = useContext(AuthContext);
 
   const { name, surname, country, city, role, about } = user;
-  const menu = [
-    {
-      title: "Intro",
-      url: "users/me",
-      fields: { name, surname, country, city, role },
-      method: "PUT",
-      refetch: getUser,
-    },
-    {
-      title: "About",
-      url: "users/me",
-      fields: { about },
-      method: "POST",
-      refetch: getUser,
-    },
-    {
-      title: "Experience",
-      url: "/experiences",
-      fields: {
-        title: "",
-        company: "",
-        location: "",
-        startDate: "",
-        endDate: "",
-        role: "",
-        description: "",
-      },
-      method: "POST",
-      refetch: async function () {},
-    },
-    {
-      title: "Education",
-      url: "/educations",
-      fields: {
-        title: "",
-        company: "",
-        location: "",
-        startDate: "",
-        endDate: "",
-        role: "",
-        description: "",
-      },
-      method: "POST",
-      refetch: getUser,
-    },
-  ];
-  return <div></div>;
+
+  return (
+    <Popper
+      open={props.open}
+      anchorEl={props.anchorEl}
+      placement={"bottom-end"}
+      transition
+    >
+      {({ TransitionProps }) => (
+        <Fade {...TransitionProps} timeout={350}>
+          <Paper>
+            {props.menu.map((option, i) => (
+              <Button key={i} onClick={() => props.handleModalOpen(true, i)}>
+                {option.title}
+              </Button>
+            ))}
+          </Paper>
+        </Fade>
+      )}
+    </Popper>
+  );
 }
 
 export default AddProfileMenu;

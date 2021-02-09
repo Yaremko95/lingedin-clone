@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -13,7 +13,11 @@ function Modal(props) {
   const { open, handleOpen, title, method, url, refetch } = props;
   const [fields, setFields] = useState(props.fields);
   const [file, setFile] = useState(null);
+  useEffect(() => {
+    setFields(props.fields);
+  }, [props]);
   const submit = async () => {
+    console.log(url, method);
     try {
       const fd = new FormData();
       for (let field in fields) {

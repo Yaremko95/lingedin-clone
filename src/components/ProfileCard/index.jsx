@@ -13,23 +13,79 @@ import { AuthContext } from "../../context/Auth";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import AddProfileMenu from "../AddProfileMenu";
 function ProfileCard(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [menuAnchorEl, setAnchorEl] = React.useState(null);
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const [index, setIndex] = React.useState(0);
+  const handleModalOpen = (open, i) => {
+    setIndex(i);
+    setOpen(open);
+  };
+  const handleMenuPopper = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpenMenu((prev) => !prev);
+  };
   const { user, isAuthorized, getUser } = useContext(AuthContext);
 
-  const { name, surname, country, city, role } = user;
+  const { name, surname, country, city, role, about } = user;
+  const menu = [
+    {
+      title: "Intro",
+      url: "users/me",
+      fields: { name, surname, country, city, role },
+      method: "PUT",
+      refetch: getUser,
+    },
+    {
+      title: "About",
+      url: "users/me",
+      fields: { about },
+      method: "PUT",
+      refetch: getUser,
+    },
+    {
+      title: "Experience",
+      url: "/experiences",
+      fields: {
+        title: "",
+        company: "",
+        location: "",
+        startDate: "",
+        endDate: "",
+        role: "",
+        description: "",
+      },
+      method: "POST",
+      refetch: async function () {
+        try {
+        } catch (e) {}
+      },
+    },
+    {
+      title: "Education",
+      url: "/educations",
+      fields: {
+        title: "",
+        company: "",
+        location: "",
+        startDate: "",
+        endDate: "",
+        role: "",
+        description: "",
+      },
+      method: "POST",
+      refetch: async function () {
+        try {
+        } catch (e) {}
+      },
+    },
+  ];
   return (
     <div className={classes.wrapper}>
-      <Modal
-        open={open}
-        handleOpen={setOpen}
-        fields={{ name, surname, country, city, role }}
-        method={"PUT"}
-        url={"/users/me"}
-        title={"Edit Intro"}
-        refetch={getUser}
-      >
+      <Modal open={open} handleOpen={setOpen} {...menu[index]}>
         {({ fields, onFieldsChange, file, onFileChange }) => (
           <>
             {Object.keys(fields).map((field, i) => (
@@ -66,7 +122,7 @@ function ProfileCard(props) {
       </Modal>
       <div className={classes.contentContainer}>
         <Avatar className={classes.avatar} src={user.imgUrl} />
-        <EditOutlinedIcon onClick={() => setOpen(true)} />
+        <EditOutlinedIcon onClick={() => handleModalOpen(true, 0)} />
       </div>
       <Grid container className={classes.mainContent}>
         <Grid item xs={7}>
@@ -93,9 +149,16 @@ function ProfileCard(props) {
               variant="outlined"
               color={"primary"}
               endIcon={<ArrowDropDownIcon />}
+              onClick={handleMenuPopper}
             >
               Add profile section
             </Button>
+            <AddProfileMenu
+              open={openMenu}
+              anchorEl={menuAnchorEl}
+              menu={menu}
+              handleModalOpen={handleModalOpen}
+            />
             <Button variant="outlined" endIcon={<ArrowDropDownIcon />}>
               More...
             </Button>
