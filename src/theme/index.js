@@ -37,7 +37,7 @@ export const theme = createMuiTheme({
     },
     h6: {
       fontSize: "0.9rem",
-      fontWeight: 600,
+      fontWeight: 400,
       lineHeight: "1.33333",
       color: "rgba(0,0,0,0.7)",
     },
@@ -70,6 +70,19 @@ export const theme = createMuiTheme({
     MuiLink: {
       root: {
         fontWeight: 600,
+      },
+    },
+    MuiTextField: {
+      root: {
+        width: "100%",
+      },
+    },
+    MuiDialogTitle: {
+      root: {
+        fontSize: "1.6rem",
+        fontWeight: 400,
+        lineHeight: "1.33333",
+        color: "rgba(0,0,0,0.7)",
       },
     },
   },

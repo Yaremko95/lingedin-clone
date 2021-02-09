@@ -46,4 +46,7 @@ export const useStyles = makeStyles((theme) => ({
     height: "30px",
     margin: "0 10px 0 72px",
   },
+  input: {
+    display: "none",
+  },
 }));

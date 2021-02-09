@@ -7,4 +7,9 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     // padding: "24px",
   },
+  quillContainer: {
+    width: "550px",
+    height: "100px",
+    border: "1px solid black",
+  },
 }));

@@ -13,7 +13,7 @@ const UnprotectedRoute = ({
   ...rest
 }) => {
   const { isAuthenticated } = useContext(AuthContext);
-
+  console.log("here");
   return (
     <Route
       exact={exact}

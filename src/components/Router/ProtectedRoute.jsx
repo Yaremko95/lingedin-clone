@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../../context/Auth";
 import ReactHelmet from "../helmet/ReactHelmet";
+import backend from "../../clients/backemd.client";
 
 const ProtectedRoute = ({
   component: Component,
@@ -13,6 +14,7 @@ const ProtectedRoute = ({
   ...rest
 }) => {
   const { isAuthenticated } = useContext(AuthContext);
+
   console.log("here");
   return (
     <Route

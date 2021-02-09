@@ -1,20 +1,33 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
+import backend from "../clients/backemd.client";
+import { useAsync } from "./hooks";
 export const AuthContext = createContext();
-function Auth({ children }) {
-  const [user, setUser] = useState(null);
-  const [isAuthenticated, setAuthenticated] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {}, []);
+function Auth({ children, history }) {
+  const {
+    user,
+    isLoaded,
+    isAuthenticated,
+    educations,
+    experiences,
+    setExperiences,
+    setEducations,
+    reset,
+    getUser,
+  } = useAsync();
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+  const value = React.useMemo(() => ({ user, getUser, isAuthenticated }), [
+    user,
+    getUser,
+    isAuthenticated,
+  ]);
   return (
     <div>
-      {isLoaded ? (
+      {!isLoaded ? (
         <div>Loading</div>
       ) : (
-        <AuthContext.Provider
-          value={{ user, setUser, isAuthenticated, setAuthenticated }}
-        >
-          {children}
-        </AuthContext.Provider>
+        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
       )}
     </div>
   );

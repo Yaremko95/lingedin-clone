@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
-
+import uniqid from "uniqid";
 function NavMeOptions(props) {
   const classes = useStyles();
   const accountLinks = [
@@ -40,8 +40,12 @@ function NavMeOptions(props) {
       <div className={classes.container}>
         <Typography variant={"h6"}>Account</Typography>
         {accountLinks.map((link) => (
-          <Link to={link.path} className={classes.link}>
-            <Typography variant={"body2"} className={classes.title}>
+          <Link to={link.path} className={classes.link} key={uniqid()}>
+            <Typography
+              variant={"body2"}
+              className={classes.title}
+              key={uniqid()}
+            >
               {link.title}
             </Typography>
           </Link>
@@ -51,8 +55,12 @@ function NavMeOptions(props) {
       <div className={classes.container}>
         <Typography variant={"h6"}>Manage</Typography>
         {manageLinks.map((link) => (
-          <Link to={link.path} className={classes.link}>
-            <Typography variant={"body2"} className={classes.title}>
+          <Link to={link.path} className={classes.link} key={uniqid()}>
+            <Typography
+              variant={"body2"}
+              className={classes.title}
+              key={uniqid()}
+            >
               {link.title}
             </Typography>
           </Link>
@@ -60,7 +68,7 @@ function NavMeOptions(props) {
       </div>
       <Divider />
       <div className={classes.container}>
-        <Link className={classes.link}>
+        <Link className={classes.link} to={"/"}>
           <Typography variant={"body2"} className={classes.title}>
             Sign Out
           </Typography>

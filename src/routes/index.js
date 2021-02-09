@@ -1,8 +1,10 @@
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../layouts/Main/MainLayout";
 import Home from "../pages/Home/Home";
 import Profile from "../pages/Profile/Profile";
-import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/SignUp/SignUp";
+import LoginLayout from "../layouts/Login";
+import SignUpLayout from "../layouts/SignUp";
 
 export default [
   {
@@ -27,7 +29,7 @@ export default [
     title: "Login",
     description: "",
     path: "/login",
-    layout: MainLayout,
+    layout: LoginLayout,
     component: Login,
     exact: true,
     isProtected: false,
@@ -36,7 +38,7 @@ export default [
     title: "SignUp",
     description: "",
     path: "/signup",
-    layout: MainLayout,
+    layout: SignUpLayout,
     component: SignUp,
     exact: true,
     isProtected: false,
