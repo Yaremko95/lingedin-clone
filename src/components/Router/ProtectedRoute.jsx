@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { AuthContext } from "../../context/Auth";
+import { AuthContext } from "../../context/auth/Auth";
 import ReactHelmet from "../helmet/ReactHelmet";
 import backend from "../../clients/backemd.client";
 

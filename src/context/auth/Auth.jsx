@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import backend from "../clients/backemd.client";
+import backend from "../../clients/backemd.client";
 import { useAsync } from "./hooks";
 export const AuthContext = createContext();
 function Auth({ children, history }) {

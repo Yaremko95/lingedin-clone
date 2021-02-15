@@ -4,7 +4,7 @@ import { useStyles } from "./styles";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Modal from "../Modal";
 import ReactQuill from "react-quill";
-import { AuthContext } from "../../context/Auth";
+import { AuthContext } from "../../context/auth/Auth";
 import "react-quill/dist/quill.bubble.css";
 function AboutCard(props) {
   const classes = useStyles();

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Modal from "../Modal";
-import { AuthContext } from "../../context/Auth";
+import { AuthContext } from "../../context/auth/Auth";
 import Popper from "@material-ui/core/Popper";
 import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";

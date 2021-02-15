@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
@@ -7,8 +7,10 @@ import { useStyles } from "./styles";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Button from "@material-ui/core/Button";
 import backend from "../../clients/backemd.client";
+import { SocketContext } from "../../context/socket/SocketProvider";
 function Login(props) {
   const classes = useStyles();
+
   const [fields, setFields] = useState({
     email: "",
     password: "",
@@ -20,6 +22,7 @@ function Login(props) {
       if (status === 200) {
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
+
         window.location.replace("/");
       }
     } catch (e) {
