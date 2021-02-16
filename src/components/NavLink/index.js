@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useStyles } from "./styles";
 import Badge from "@material-ui/core/Badge";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -7,7 +7,9 @@ import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
+import { AuthContext } from "../../context/auth/Auth";
 function NavLink(props) {
+  const { user } = useContext(AuthContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
@@ -30,12 +32,7 @@ function NavLink(props) {
           <Icon className={classes.icon} />
         </Badge>
       ) : (
-        <Avatar
-          className={classes.avatar}
-          src={
-            "https://media-exp1.licdn.com/dms/image/C4D03AQFt6qjjyo0vAg/profile-displayphoto-shrink_200_200/0/1590862176974?e=1618444800&v=beta&t=6aDM7TdXWzPS9P2_6jh5bdcWu9xclbxtc4eVuCfvo8c"
-          }
-        />
+        <Avatar className={classes.avatar} src={user.imgUrl} />
       )}
       <div className={classes.titleWrapper}>
         <Typography className={classes.title}>{title}</Typography>{" "}

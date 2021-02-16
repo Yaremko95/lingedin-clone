@@ -16,6 +16,15 @@ export default [
     exact: true,
     isProtected: true,
   },
+  // {
+  //   title: "Profile",
+  //   description: "",
+  //   path: "/profile/me",
+  //   layout: MainLayout,
+  //   component: Profile,
+  //   exact: true,
+  //   isProtected: true,
+  // },
   {
     title: "Profile",
     description: "",

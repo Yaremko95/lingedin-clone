@@ -12,4 +12,22 @@ export const useStyles = makeStyles((theme) => ({
     height: "100px",
     border: "1px solid black",
   },
+  aboutText: {
+    fontSize: "0.9rem",
+    color: "rgba(0,0, 0, 0.7)",
+    "& p": {
+      margin: 0,
+    },
+  },
+  aboutContainer: {
+    position: "relative",
+  },
+  seeMoreBtn: {
+    position: "absolute",
+    color: "rgba(0,0, 0, 0.6)",
+    backgroundColor: "white",
+    cursor: "pointer",
+    bottom: 0,
+    right: 0,
+  },
 }));

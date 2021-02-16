@@ -17,11 +17,10 @@ function Auth({ children, history }) {
   useEffect(() => {
     getUser();
   }, [getUser]);
-  const value = React.useMemo(() => ({ user, getUser, isAuthenticated }), [
-    user,
-    getUser,
-    isAuthenticated,
-  ]);
+  const value = React.useMemo(
+    () => ({ user, getUser, isAuthenticated, educations, experiences }),
+    [user, getUser, isAuthenticated, educations, experiences]
+  );
   return (
     <div>
       {!isLoaded ? (

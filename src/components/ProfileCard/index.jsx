@@ -28,23 +28,23 @@ function ProfileCard(props) {
     setAnchorEl(event.currentTarget);
     setOpenMenu((prev) => !prev);
   };
-  const { user, isAuthorized, getUser } = useContext(AuthContext);
-
-  const { name, surname, country, city, role, about } = user;
+  const { user: authorizedUser, isAuthorized, getUser } = useContext(
+    AuthContext
+  );
+  const { user } = props;
+  const { name, surname, country, city, role, about } = authorizedUser;
   const menu = [
     {
       title: "Intro",
       url: "users/me",
       fields: { name, surname, country, city, role },
       method: "PUT",
-      refetch: getUser,
     },
     {
       title: "About",
       url: "users/me",
       fields: { about },
       method: "PUT",
-      refetch: getUser,
     },
     {
       title: "Experience",
@@ -59,10 +59,6 @@ function ProfileCard(props) {
         description: "",
       },
       method: "POST",
-      refetch: async function () {
-        try {
-        } catch (e) {}
-      },
     },
     {
       title: "Education",
@@ -77,15 +73,16 @@ function ProfileCard(props) {
         description: "",
       },
       method: "POST",
-      refetch: async function () {
-        try {
-        } catch (e) {}
-      },
     },
   ];
   return (
     <div className={classes.wrapper}>
-      <Modal open={open} handleOpen={setOpen} {...menu[index]}>
+      <Modal
+        open={open}
+        handleOpen={setOpen}
+        {...menu[index]}
+        refetch={getUser}
+      >
         {({ fields, onFieldsChange, file, onFileChange }) => (
           <>
             {Object.keys(fields).map((field, i) => (
@@ -126,8 +123,8 @@ function ProfileCard(props) {
       </div>
       <Grid container className={classes.mainContent}>
         <Grid item xs={7}>
-          <Typography variant={"h3"}>Tetiana Yaremko</Typography>
-          <Typography variant={"h4"}>Junior Web Developer</Typography>
+          <Typography variant={"h3"}>{user.fullName}</Typography>
+          <Typography variant={"h4"}>{user.role}</Typography>
           <div className={classes.contactInfo}>
             <Typography variant={"h5"}>Opole, Opolske, Poland</Typography>
             <Link component={RouterLink} to="/" color={"primary"}>
