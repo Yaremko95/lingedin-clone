@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles((theme) => ({
-  dialogCard: {
-    padding: "24px",
+  avatar: {
+    height: "100px",
+    width: "100px",
+    cursor: "pointer",
   },
-  paper: { minWidth: "700px" },
 }));

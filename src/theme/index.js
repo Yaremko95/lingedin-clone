@@ -22,7 +22,7 @@ export const theme = createMuiTheme({
       fontWeight: 400,
       lineHeight: "1.33333",
       color: "rgba(0,0,0,0.7)",
-      marginTop: "4px",
+      // marginTop: "4px",
       // margin: 0,
       // padding: 0,
     },
@@ -72,11 +72,22 @@ export const theme = createMuiTheme({
         fontWeight: 600,
       },
     },
+    // MuiDialog: {
+    //   root: {
+    //     width: "700px",
+    //   },
+    // },
     MuiTextField: {
       root: {
         width: "100%",
+        borderRadius: 0,
       },
     },
+    // MuiOutlinedInput: {
+    //   "&$focused $notchedOutline": {
+    //     borderColor: "green",
+    //   },
+    // },
     MuiDialogTitle: {
       root: {
         fontSize: "1.6rem",

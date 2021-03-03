@@ -4,6 +4,7 @@ import AuthProvider from "./context/auth/Auth";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import { theme } from "./theme";
 import SocketProvider from "./context/socket/SocketProvider";
+import ChatPortal from "./components/Portal";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <AuthProvider>
         <SocketProvider>
           <RouterWrapper />
+          <ChatPortal />
         </SocketProvider>
       </AuthProvider>
     </ThemeProvider>

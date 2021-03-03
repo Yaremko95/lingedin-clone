@@ -13,21 +13,31 @@ export const useStyles = makeStyles((theme) => ({
     border: "1px solid black",
   },
   aboutText: {
-    fontSize: "0.9rem",
-    color: "rgba(0,0, 0, 0.7)",
     "& p": {
       margin: 0,
+      fontSize: "0.9rem",
+      color: "rgba(0,0, 0, 0.7)!important",
+    },
+    "& p span": {
+      fontSize: "0.9rem",
+      color: "rgba(0,0, 0, 0.7)!important",
     },
   },
   aboutContainer: {
     position: "relative",
+    marginTop: theme.spacing(2),
   },
   seeMoreBtn: {
-    position: "absolute",
     color: "rgba(0,0, 0, 0.6)",
     backgroundColor: "white",
     cursor: "pointer",
     bottom: 0,
-    right: 0,
+    "&.positionRight": {
+      right: 0,
+      position: "absolute",
+    },
+    "&.positionLeft": {
+      // marginTop: "0.8rem",
+    },
   },
 }));

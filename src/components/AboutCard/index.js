@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./styles";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
@@ -8,19 +8,27 @@ import { AuthContext } from "../../context/auth/Auth";
 import "react-quill/dist/quill.bubble.css";
 import Collapse from "@material-ui/core/Collapse";
 import Button from "@material-ui/core/Button";
+import AboutFields from "../FieldsGroup/AboutFields";
+import modal from "../Modal";
 function AboutCard(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [seeMore, setSeeMore] = useState(false);
-  const { getUser } = useContext(AuthContext);
+  const { getUser } = props;
   const { about } = props.user;
+  useEffect(() => {
+    setSeeMore(false);
+  }, [about]);
+  const AboutModal = modal(AboutFields);
   return (
     <>
       <div className={classes.headingWrapper}>
         <Typography variant={"h3"}>About</Typography>
-        <EditOutlinedIcon onClick={() => setOpen(true)} />
+        {props.user.authorized && (
+          <EditOutlinedIcon onClick={() => setOpen(true)} />
+        )}
 
-        <Modal
+        <AboutModal
           open={open}
           s
           handleOpen={setOpen}
@@ -29,22 +37,7 @@ function AboutCard(props) {
           url={"/users/me"}
           title={"Edit About"}
           refetch={getUser}
-        >
-          {({ fields, onFieldsChange }) => (
-            <div className={classes.quillContainer}>
-              {Object.keys(fields).map((field, i) => (
-                <ReactQuill
-                  key={i}
-                  theme={"bubble"}
-                  value={fields[field] || ""}
-                  onChange={(value) =>
-                    onFieldsChange({ ...fields, [field]: value })
-                  }
-                />
-              ))}
-            </div>
-          )}
-        </Modal>
+        />
       </div>
       <div className={classes.aboutContainer}>
         <Collapse in={seeMore} collapsedHeight={60}>
@@ -54,7 +47,9 @@ function AboutCard(props) {
           />
         </Collapse>
         <span
-          className={classes.seeMoreBtn}
+          className={`${classes.seeMoreBtn} ${
+            !seeMore ? "positionRight" : "positionLeft"
+          }`}
           onClick={() => setSeeMore(!seeMore)}
         >
           {seeMore ? "See less" : "...See more"}

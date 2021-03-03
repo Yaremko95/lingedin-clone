@@ -7,9 +7,23 @@ import React, {
 import { useSocket } from "./hooks";
 import { AuthContext } from "../auth/Auth";
 import { socket } from "./sockets/index";
+
+const sortHistory = (history) => {
+  history.reduce();
+};
 export const SocketContext = createContext();
+
 function SocketProvider({ children }) {
-  const { setHistory, setOnline, online, history, updateHistory } = useSocket();
+  const {
+    setOnline,
+    online,
+    setChats,
+    updateChats,
+    chats,
+    setChatOpen,
+    isHistoryOpen,
+    setIsHistoryOpen,
+  } = useSocket();
   const { isAuthenticated } = useContext(AuthContext);
 
   const handleLoginChat = useCallback(() => {
@@ -24,13 +38,14 @@ function SocketProvider({ children }) {
     // socket.on("connect", function () {
     //   console.log("Connected");
     // });
-    socket.on("history", (data) => {
-      console.log("history", data);
+    socket.on("conversations", (data) => {
+      console.log("conversations", data);
+      setChats(data);
     });
 
     socket.on("loggedIn", (data) => {
       console.log("loggedIn", data);
-      setOnline(data.users);
+      setOnline(data);
     });
     socket.on("leave", (data) => {
       console.log("leave", data);
@@ -39,7 +54,7 @@ function SocketProvider({ children }) {
 
     socket.on("receiveMsg", (data) => {
       console.log("receiveMsg", data);
-      updateHistory(data);
+      updateChats(data);
     });
   }, [socket]);
   useEffect(() => {
@@ -48,8 +63,28 @@ function SocketProvider({ children }) {
     }
   }, [isAuthenticated, handleLoginChat]);
   const value = React.useMemo(
-    () => ({ setHistory, setOnline, online, history, handleLoginChat }),
-    [setHistory, setOnline, online, history, handleLoginChat]
+    () => ({
+      setChats,
+      setOnline,
+      online,
+      chats,
+      handleLoginChat,
+      setChatOpen,
+      isHistoryOpen,
+      setIsHistoryOpen,
+      socket,
+    }),
+    [
+      setChats,
+      setOnline,
+      online,
+      chats,
+      handleLoginChat,
+      setChatOpen,
+      isHistoryOpen,
+      setIsHistoryOpen,
+      socket,
+    ]
   );
   return (
     <SocketContext.Provider value={value}>{children}</SocketContext.Provider>

@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../../context/auth/Auth";
 import ReactHelmet from "../helmet/ReactHelmet";
 import backend from "../../clients/backemd.client";
+import ChatPortal from "../Portal";
 
 const ProtectedRoute = ({
   component: Component,
@@ -15,7 +16,6 @@ const ProtectedRoute = ({
 }) => {
   const { isAuthenticated } = useContext(AuthContext);
 
-  console.log("here");
   return (
     <Route
       exact={exact}

@@ -8,6 +8,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import { AuthContext } from "../../context/auth/Auth";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+
 function NavLink(props) {
   const { user } = useContext(AuthContext);
   const classes = useStyles();
@@ -44,11 +46,13 @@ function NavLink(props) {
           transition
         >
           {({ TransitionProps }) => (
-            <Fade {...TransitionProps} timeout={350}>
-              <Paper>
-                <Menu />
-              </Paper>
-            </Fade>
+            <ClickAwayListener onClickAway={() => setOpen(false)}>
+              <Fade {...TransitionProps} timeout={350}>
+                <Paper>
+                  <Menu />
+                </Paper>
+              </Fade>
+            </ClickAwayListener>
           )}
         </Popper>
       </div>

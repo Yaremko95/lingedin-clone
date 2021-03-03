@@ -8,11 +8,12 @@ import Typography from "@material-ui/core/Typography";
 import backend from "../../clients/backemd.client";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./styles";
-function Modal(props) {
+const modal = (FieldsGroup) => (props) => {
   const classes = useStyles();
   const { open, handleOpen, title, method, url, refetch } = props;
   const [fields, setFields] = useState(props.fields);
   const [file, setFile] = useState(null);
+
   useEffect(() => {
     setFields(props.fields);
   }, [props]);
@@ -39,24 +40,28 @@ function Modal(props) {
       console.log(e);
     }
   };
-  const getStateAndHelpers = () => ({
+  const stateAndHelpers = {
     fields: fields,
     file: file,
     onFieldsChange: setFields,
     onFileChange: setFile,
-  });
+  };
 
   return (
     <Dialog
       open={open}
       onClose={() => handleOpen(false)}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      aria-labelledby="form-dialog-title"
+      // fullWidth
+      classes={{ paper: classes.paper }}
+      // aria-describedby="alert-dialog-description"
       className={classes.dialogCard}
     >
       {" "}
       <DialogTitle disableTypography>{title}</DialogTitle>
-      <DialogContent>{props.children(getStateAndHelpers())}</DialogContent>
+      <DialogContent>
+        <FieldsGroup {...stateAndHelpers} />
+      </DialogContent>
       <DialogActions>
         <Button variant={"contained"} color={"primary"} onClick={submit}>
           {method === "POST" ? "Add" : "Edit"}
@@ -64,6 +69,6 @@ function Modal(props) {
       </DialogActions>
     </Dialog>
   );
-}
+};
 
-export default Modal;
+export default modal;

@@ -18,8 +18,15 @@ function Auth({ children, history }) {
     getUser();
   }, [getUser]);
   const value = React.useMemo(
-    () => ({ user, getUser, isAuthenticated, educations, experiences }),
-    [user, getUser, isAuthenticated, educations, experiences]
+    () => ({
+      user,
+      getUser,
+      isAuthenticated,
+      educations,
+      experiences,
+      setExperiences,
+    }),
+    [user, getUser, isAuthenticated, educations, experiences, setExperiences]
   );
   return (
     <div>
@@ -31,5 +38,11 @@ function Auth({ children, history }) {
     </div>
   );
 }
-
+export const useAuth = () => {
+  const context = React.useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error(`useAuth must be used within a AuthProvider`);
+  }
+  return context;
+};
 export default Auth;

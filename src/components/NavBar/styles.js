@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme) => ({
     top: 0,
     left: 0,
     width: "100%",
+    zIndex: 1000,
   },
   contentWrapper: {
     margin: "auto",

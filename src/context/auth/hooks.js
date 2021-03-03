@@ -38,9 +38,10 @@ const useAsync = () => {
   const getUser = React.useCallback(async () => {
     try {
       const { data, status } = await backend.get("/users/me");
-      const { experiences, educations, ...rest } = data;
+      //console.log(data);
+      const { experiences, education, ...rest } = data;
       setUser(rest, true, true);
-      setEducations(educations);
+      setEducations(education);
       setExperiences(experiences);
     } catch (e) {
       setUser(null, false, true);

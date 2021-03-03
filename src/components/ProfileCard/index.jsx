@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import "date-fns";
 import { useStyles } from "./styles";
 import Avatar from "@material-ui/core/Avatar";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
@@ -8,12 +9,22 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Grid from "@material-ui/core/Grid";
-import Modal from "../Modal";
-import { AuthContext } from "../../context/auth/Auth";
+import modal from "../Modal";
+import { AuthContext, useAuth } from "../../context/auth/Auth";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import AddProfileMenu from "../AddProfileMenu";
+
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css";
+import ProfileFieldsGroup from "../FieldsGroup/ProfileFields";
 function ProfileCard(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -28,98 +39,104 @@ function ProfileCard(props) {
     setAnchorEl(event.currentTarget);
     setOpenMenu((prev) => !prev);
   };
-  const { user: authorizedUser, isAuthorized, getUser } = useContext(
-    AuthContext
-  );
+  const { user: authorizedUser, getUser } = useAuth();
   const { user } = props;
-  const { name, surname, country, city, role, about } = authorizedUser;
-  const menu = [
-    {
-      title: "Intro",
-      url: "users/me",
-      fields: { name, surname, country, city, role },
-      method: "PUT",
-    },
-    {
-      title: "About",
-      url: "users/me",
-      fields: { about },
-      method: "PUT",
-    },
-    {
-      title: "Experience",
-      url: "/experiences",
-      fields: {
-        title: "",
-        company: "",
-        location: "",
-        startDate: "",
-        endDate: "",
-        role: "",
-        description: "",
-      },
-      method: "POST",
-    },
-    {
-      title: "Education",
-      url: "/educations",
-      fields: {
-        title: "",
-        school: "",
-        location: "",
-        startDate: "",
-        endDate: "",
-        degree: "",
-        description: "",
-      },
-      method: "POST",
-    },
-  ];
+  const { name, surname, country, city, role, about, imgUrl } = authorizedUser;
+
+  const ProfileModal = modal(ProfileFieldsGroup);
   return (
     <div className={classes.wrapper}>
-      <Modal
+      <ProfileModal
         open={open}
         handleOpen={setOpen}
-        {...menu[index]}
+        title={"Intro"}
+        url={"users/me"}
+        fields={{ name, surname, country, city, role, about, imgUrl }}
+        method={"PUT"}
         refetch={getUser}
-      >
-        {({ fields, onFieldsChange, file, onFileChange }) => (
-          <>
-            {Object.keys(fields).map((field, i) => (
-              <TextField
-                value={fields[field] || ""}
-                key={i}
-                label={field}
-                variant="outlined"
-                focused={i === 0}
-                // className={classes.mt24}
-                onChange={(e) =>
-                  onFieldsChange({ ...fields, [field]: e.currentTarget.value })
-                }
-              />
-            ))}
-            <input
-              accept="image/*"
-              className={classes.input}
-              id="icon-button-file"
-              type="file"
-              onChange={(e) => onFileChange(e.target.files[0])}
-            />
-            <label htmlFor="icon-button-file">
-              <IconButton
-                color="primary"
-                aria-label="upload picture"
-                component="span"
-              >
-                <PhotoCamera />
-              </IconButton>
-            </label>
-          </>
-        )}
-      </Modal>
+      />
+      {/*<Modal*/}
+      {/*  open={open}*/}
+      {/*  handleOpen={setOpen}*/}
+      {/*  {...menu[index]}*/}
+      {/*  refetch={getUser}*/}
+      {/*>*/}
+      {/*  {({ fields, onFieldsChange, file, onFileChange }) => (*/}
+      {/*    <>*/}
+      {/*      {Object.keys(fields).map((field, i) =>*/}
+      {/*        field === "description" ? (*/}
+      {/*          <ReactQuill*/}
+      {/*            key={i}*/}
+      {/*            theme={"bubble"}*/}
+      {/*            value={fields[field] || ""}*/}
+      {/*            onChange={(value) =>*/}
+      {/*              onFieldsChange({ ...fields, [field]: value })*/}
+      {/*            }*/}
+      {/*          />*/}
+      {/*        ) : field === "startDate" || field === "endDate" ? (*/}
+      {/*<MuiPickersUtilsProvider utils={DateFnsUtils}>*/}
+      {/*  {" "}*/}
+      {/*  <KeyboardDatePicker*/}
+      {/*    disableToolbar*/}
+      {/*    variant="inline"*/}
+      {/*    format="MM/dd/yyyy"*/}
+      {/*    margin="normal"*/}
+      {/*    id="date-picker-inline"*/}
+      {/*    label="Date picker inline"*/}
+      {/*    value={new Date()}*/}
+      {/*    onChange={(value) => onFieldsChange({ ...fields, [field]: value })}*/}
+      {/*    KeyboardButtonProps={{*/}
+      {/*      "aria-label": "change date",*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*</MuiPickersUtilsProvider>*/}
+      {/*        ) : (*/}
+      {/*          <TextField*/}
+      {/*            value={fields[field] || ""}*/}
+      {/*            key={i}*/}
+      {/*            label={field}*/}
+      {/*            variant="outlined"*/}
+      {/*            size={"small"}*/}
+      {/*            InputLabelProps={{*/}
+      {/*              shrink: true,*/}
+      {/*            }}*/}
+      {/*            borderRadius={0}*/}
+      {/*            margin="dense"*/}
+      {/*            focused={i === 0}*/}
+      {/*            // className={classes.mt24}*/}
+      {/*            onChange={(e) =>*/}
+      {/*              onFieldsChange({*/}
+      {/*                ...fields,*/}
+      {/*                [field]: e.currentTarget.value,*/}
+      {/*              })*/}
+      {/*            }*/}
+      {/*          />*/}
+      {/*        )*/}
+      {/*      )}*/}
+      {/*<input*/}
+      {/*  accept="image/*"*/}
+      {/*  className={classes.input}*/}
+      {/*  id="icon-button-file"*/}
+      {/*  type="file"*/}
+      {/*  onChange={(e) => onFileChange(e.target.files[0])}*/}
+      {/*/>*/}
+      {/*<label htmlFor="icon-button-file">*/}
+      {/*  <IconButton*/}
+      {/*    color="primary"*/}
+      {/*    aria-label="upload picture"*/}
+      {/*    component="span"*/}
+      {/*  >*/}
+      {/*    <PhotoCamera />*/}
+      {/*  </IconButton>*/}
+      {/*</label>*/}
+      {/*    </>*/}
+      {/*  )}*/}
+      {/*</Modal>*/}
       <div className={classes.contentContainer}>
         <Avatar className={classes.avatar} src={user.imgUrl} />
-        <EditOutlinedIcon onClick={() => handleModalOpen(true, 0)} />
+        {user.authorized && (
+          <EditOutlinedIcon onClick={() => handleModalOpen(true, 0)} />
+        )}
       </div>
       <Grid container className={classes.mainContent}>
         <Grid item xs={7}>
@@ -134,32 +151,34 @@ function ProfileCard(props) {
               Contact Info
             </Link>
           </div>
-          <div className={classes.buttonsContainer}>
-            <Button
-              variant="contained"
-              color={"primary"}
-              endIcon={<ArrowDropDownIcon />}
-            >
-              Open to
-            </Button>
-            <Button
-              variant="outlined"
-              color={"primary"}
-              endIcon={<ArrowDropDownIcon />}
-              onClick={handleMenuPopper}
-            >
-              Add profile section
-            </Button>
-            <AddProfileMenu
-              open={openMenu}
-              anchorEl={menuAnchorEl}
-              menu={menu}
-              handleModalOpen={handleModalOpen}
-            />
-            <Button variant="outlined" endIcon={<ArrowDropDownIcon />}>
-              More...
-            </Button>
-          </div>
+          {user.authorized && (
+            <div className={classes.buttonsContainer}>
+              <Button
+                variant="contained"
+                color={"primary"}
+                endIcon={<ArrowDropDownIcon />}
+              >
+                Open to
+              </Button>
+              <Button
+                variant="outlined"
+                color={"primary"}
+                endIcon={<ArrowDropDownIcon />}
+                onClick={handleMenuPopper}
+              >
+                Add profile section
+              </Button>
+              <AddProfileMenu
+                open={openMenu}
+                anchorEl={menuAnchorEl}
+                // menu={menu}
+                // handleModalOpen={handleModalOpen}
+              />
+              <Button variant="outlined" endIcon={<ArrowDropDownIcon />}>
+                More...
+              </Button>
+            </div>
+          )}
         </Grid>
         <Grid item xs={5}>
           <div className={classes.eduInfo}>

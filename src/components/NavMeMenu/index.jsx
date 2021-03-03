@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import uniqid from "uniqid";
 import { AuthContext } from "../../context/auth/Auth";
 function NavMeOptions(props) {
@@ -29,7 +30,12 @@ function NavMeOptions(props) {
             <Typography variant={"body2"}>web developer</Typography>
           </div>
         </div>
-        <Button variant="outlined" color="primary" style={{ width: "100%" }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          style={{ width: "100%" }}
+          onClick={() => props.history.push("profile/me")}
+        >
           View Profile
         </Button>
       </div>
@@ -75,4 +81,4 @@ function NavMeOptions(props) {
   );
 }
 
-export default NavMeOptions;
+export default withRouter(NavMeOptions);

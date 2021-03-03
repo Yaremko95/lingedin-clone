@@ -1,7 +1,7 @@
 import React from "react";
 import { useStyles } from "./styles";
 import NavSearch from "../NavSearch";
-
+import { withRouter } from "react-router-dom";
 import NavLink from "../NavLink";
 import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
@@ -20,6 +20,7 @@ function NavBar(props) {
           <img
             className={classes.logo}
             src="https://image.flaticon.com/icons/png/512/174/174857.png"
+            onClick={() => props.history.push("/")}
           />
           <NavSearch />
         </div>
@@ -41,4 +42,4 @@ function NavBar(props) {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);
