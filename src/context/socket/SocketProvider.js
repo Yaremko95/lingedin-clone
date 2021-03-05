@@ -8,9 +8,6 @@ import { useSocket } from "./hooks";
 import { AuthContext } from "../auth/Auth";
 import { socket } from "./sockets/index";
 
-const sortHistory = (history) => {
-  history.reduce();
-};
 export const SocketContext = createContext();
 
 function SocketProvider({ children }) {
@@ -33,6 +30,7 @@ function SocketProvider({ children }) {
   }, []);
   useEffect(() => {
     socket.connect();
+    console.log("connected", socket.connected);
 
     // if (isAuthenticated) {
     // socket.on("connect", function () {
@@ -54,9 +52,11 @@ function SocketProvider({ children }) {
 
     socket.on("receiveMsg", (data) => {
       console.log("receiveMsg", data);
+
       updateChats(data);
     });
-  }, [socket]);
+    console.log({ chats });
+  }, [socket, chats]);
   useEffect(() => {
     if (isAuthenticated) {
       handleLoginChat();
@@ -86,6 +86,7 @@ function SocketProvider({ children }) {
       socket,
     ]
   );
+
   return (
     <SocketContext.Provider value={value}>{children}</SocketContext.Provider>
   );

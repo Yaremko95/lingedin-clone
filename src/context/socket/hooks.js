@@ -42,8 +42,9 @@ const useSocket = () => {
   // const setHistory = React.useCallback((history) => safeSetState({ history }), [
   //   safeSetState,
   // ]);
+  console.log("hook gets rerendered");
   const setChatOpen = (id) =>
-    safeSetState({
+    setState({
       chats: {
         ...chats,
         [id.toString()]: { ...chats[id.toString()], isOpen: true },
@@ -55,36 +56,67 @@ const useSocket = () => {
       // }),
     });
 
-  const updateChats = (msg) =>
-    safeSetState(
-      chats[msg.conversationId.toString()]
-        ? {
-            chats: {
-              ...chats,
-              [msg.conversationId]: {
-                ...chats[msg.conversationId.toString()],
-                messages: [
-                  ...chats[msg.conversationId.toString()].messages,
-                  msg,
-                ],
-              },
-            },
-          }
-        : // ? {
-          //     chats: produce(chats, (draftState) => {
-          //       draftState[msg.conversationId.toString()].messages.push(msg);
-          //       draftState[msg.conversationId.toString()].isOpen = false;
-          //     }),
-          //   }
-          {
-            chats: produce(chats, (draftState) => {
-              draftState[msg.conversationId] = {
-                messages: [],
-                isOpen: false,
-              };
-            }),
-          }
-    );
+  const updateChats = (msg) => {
+    // for (let chat in chats) {
+    console.log({ msg });
+
+    const chatId = msg.conversationId;
+    const chat = chats[chatId];
+    console.log({ chat, chats });
+    // console.log({ chatId: chats[chatId] });
+    if (chat) {
+      setState({
+        chats: {
+          ...chats,
+          [chatId]: {
+            ...chats[chatId],
+            messages: [...chats[chatId].messages, msg],
+          },
+        },
+      });
+      //console.log(test);
+      // safeSetState({
+      //   chats: {
+      //     ...chats,
+      //     [msg.conversationId.toString()]: {
+      //       ...chats[msg.conversationId.toString()],
+      //       messages: [...chats[msg.conversationId.toString()].messages, msg],
+      //     },
+      //   },
+      // });
+    } else {
+      console.log("no");
+    }
+  };
+  // safeSetState(
+  //   chats[msg.conversationId.toString()]
+  //     ? {
+  //         chats: {
+  //           ...chats,
+  //           [msg.conversationId]: {
+  //             ...chats[msg.conversationId.toString()],
+  //             messages: [
+  //               ...chats[msg.conversationId.toString()].messages,
+  //               msg,
+  //             ],
+  //           },
+  //         },
+  //       }
+  //     : // ? {
+  //       //     chats: produce(chats, (draftState) => {
+  //       //       draftState[msg.conversationId.toString()].messages.push(msg);
+  //       //       draftState[msg.conversationId.toString()].isOpen = false;
+  //       //     }),
+  //       //   }
+  //       {
+  //         chats: produce(chats, (draftState) => {
+  //           draftState[msg.conversationId] = {
+  //             messages: [],
+  //             isOpen: false,
+  //           };
+  //         }),
+  //       }
+  // );
 
   return {
     setOnline,
