@@ -16,6 +16,7 @@ function SocketProvider({ children }) {
     online,
     setChats,
     updateChats,
+    openedChats,
     chats,
     setChatOpen,
     isHistoryOpen,
@@ -32,10 +33,6 @@ function SocketProvider({ children }) {
     socket.connect();
     console.log("connected", socket.connected);
 
-    // if (isAuthenticated) {
-    // socket.on("connect", function () {
-    //   console.log("Connected");
-    // });
     socket.on("conversations", (data) => {
       console.log("conversations", data);
       setChats(data);
@@ -73,6 +70,7 @@ function SocketProvider({ children }) {
       isHistoryOpen,
       setIsHistoryOpen,
       socket,
+      openedChats,
     }),
     [
       setChats,
@@ -84,6 +82,7 @@ function SocketProvider({ children }) {
       isHistoryOpen,
       setIsHistoryOpen,
       socket,
+      openedChats,
     ]
   );
 
