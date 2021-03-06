@@ -7,6 +7,7 @@ import { SocketContext } from "../../context/socket/SocketProvider";
 import { useSpring, animated } from "react-spring";
 
 import Chat from "../Chat";
+import { AuthContext } from "../../context/auth/Auth";
 
 export const Portal = (props) => {
   return ReactDOM.createPortal(props.children, document.body);
@@ -39,22 +40,24 @@ export const Animate = React.memo(AnimateHoc);
 const ChatPortal = (props) => {
   const classes = useStyles();
   const { chats, openedChats } = useContext(SocketContext);
-
+  const { isAuthenticated } = useContext(AuthContext);
   return (
     <Portal>
-      <div className={classes.container}>
-        <Animate isOpen>
-          <ChatHistory />
-        </Animate>
+      {isAuthenticated && (
+        <div className={classes.container}>
+          <Animate isOpen>
+            <ChatHistory />
+          </Animate>
 
-        {openedChats.map((chatId) => {
-          return (
-            <Animate isOpen key={chatId}>
-              <Chat chat={chats[chatId]} key={chatId} />
-            </Animate>
-          );
-        })}
-      </div>
+          {openedChats.map((chatId) => {
+            return (
+              <Animate isOpen key={chatId}>
+                <Chat chat={chats[chatId]} key={chatId} />
+              </Animate>
+            );
+          })}
+        </div>
+      )}
     </Portal>
   );
 };

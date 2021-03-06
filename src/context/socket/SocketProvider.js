@@ -25,13 +25,10 @@ function SocketProvider({ children }) {
   const { isAuthenticated } = useContext(AuthContext);
 
   const handleLoginChat = useCallback(() => {
-    console.log("login");
-
     socket.emit("login");
   }, []);
   useEffect(() => {
     socket.connect();
-    console.log("connected", socket.connected);
 
     socket.on("conversations", (data) => {
       console.log("conversations", data);

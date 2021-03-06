@@ -41,8 +41,15 @@ const useSocket = () => {
     [safeSetState]
   );
 
-  const setChatOpen = (id) =>
-    safeSetState({ openedChats: [...openedChats, id] });
+  const setChatOpen = (id) => {
+    if (openedChats.find((chatId) => chatId === id)) {
+      safeSetState({
+        openedChats: openedChats.filter((chatId) => chatId !== id),
+      });
+    } else {
+      safeSetState({ openedChats: [...openedChats, id] });
+    }
+  };
 
   const updateChats = (msg) => {
     console.log({ msg });
