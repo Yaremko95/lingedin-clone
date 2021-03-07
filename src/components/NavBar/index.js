@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStyles } from "./styles";
-import NavSearch from "../NavSearch";
+import NavSearch from "../Search";
 import { withRouter } from "react-router-dom";
 import NavLink from "../NavLink";
 import HomeIcon from "@material-ui/icons/Home";
@@ -13,6 +13,7 @@ import NavMeMenu from "../NavMeMenu";
 
 function NavBar(props) {
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
       <div className={classes.contentWrapper}>

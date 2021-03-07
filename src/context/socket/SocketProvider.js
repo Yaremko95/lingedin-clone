@@ -44,7 +44,7 @@ function SocketProvider({ children }) {
       setOnline(data.users);
     });
 
-    socket.on("receiveMsg", (data) => {
+    socket.off("receiveMsg").on("receiveMsg", (data) => {
       console.log("receiveMsg", data);
 
       updateChats(data);

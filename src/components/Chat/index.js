@@ -22,6 +22,7 @@ import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Message from "../Message";
 
 function Chat(props) {
   const { chat } = props;
@@ -42,7 +43,7 @@ function Chat(props) {
     setText("");
   };
   const messagesEndRef = React.useRef(null);
-  //
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -50,12 +51,7 @@ function Chat(props) {
   useEffect(() => {
     scrollToBottom();
   }, [chat.messages]);
-  //
-  // return (
-  //     <div>
-  //       {messages.map(message => <Message key={message.id} {...message} />)}
-  //       <div ref={messagesEndRef} />
-  //     </div>
+
   return (
     <>
       <div>
@@ -69,24 +65,7 @@ function Chat(props) {
       <div style={{ overflowY: "auto", height: "257px" }}>
         <List>
           {chat.messages.map((msg) => (
-            <ListItem button>
-              <ListItemIcon>
-                <Avatar className={classes.avatar} src={msg.user.imgUrl} />
-              </ListItemIcon>
-              <ListItemText
-                primary={
-                  <Typography className={classes.title}>
-                    {msg.user.fullName}
-                  </Typography>
-                }
-                secondary={
-                  <div className={classes.module}>
-                    {" "}
-                    <Typography className={classes.msg}>{msg.text}</Typography>
-                  </div>
-                }
-              />
-            </ListItem>
+            <Message msg={msg} key={msg.id} />
           ))}
         </List>
         <div ref={messagesEndRef} />

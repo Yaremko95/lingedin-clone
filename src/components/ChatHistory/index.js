@@ -8,6 +8,8 @@ import ChatConversation from "../ChatConversation";
 import { List } from "@material-ui/core";
 
 import uniqid from "uniqid";
+import Search from "../Search";
+
 function ChatHistory(props) {
   const classes = useStyles();
   const { chats } = useContext(SocketContext);
@@ -15,6 +17,10 @@ function ChatHistory(props) {
   return (
     <div style={{ height: "290px", overflowY: "scroll" }}>
       <ChatHeader toggleModal={props.toggleModal} show={props.show} />
+      <div className={classes.searchContainer}>
+        <Search />
+      </div>
+
       <List>
         {" "}
         {Object.keys(chats).map((chat) => (

@@ -24,6 +24,7 @@ export const useStyles = makeStyles(({ offset, ...theme }) => ({
   },
   icon: {
     marginLeft: theme.spacing(2),
+    fontSize: "1rem",
     color: "rgba(0,0,0,0.7)",
   },
 }));

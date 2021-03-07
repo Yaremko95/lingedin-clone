@@ -19,6 +19,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   logo: {
     height: "2rem",
+    marginRight: "16px",
   },
   content: {
     display: "flex",
