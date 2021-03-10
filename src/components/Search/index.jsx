@@ -3,7 +3,8 @@ import { useStyles } from "./styles";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
+import TextField from "./TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 function Search(props) {
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,7 +43,16 @@ function Search(props) {
           {...params}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.currentTarget.value)}
-          InputProps={{ ...params.InputProps, type: "search" }}
+          placeholder={"Search..."}
+          InputProps={{
+            ...params.InputProps,
+            type: "search",
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon className={classes.searchIcon} />
+              </InputAdornment>
+            ),
+          }}
         />
       )}
     />
