@@ -8,8 +8,8 @@ export const useStyles = makeStyles((theme) => ({
     padding: "0 10px",
   },
   avatar: {
-    height: "48px",
-    width: "48px",
+    height: "40px",
+    width: "40px",
   },
   title: {
     color: "rgba(0,0,0,0.7)",
@@ -41,5 +41,26 @@ export const useStyles = makeStyles((theme) => ({
 
     color: "rgba(0, 0, 0, 0.6)",
     margin: theme.spacing(0, 1),
+  },
+  listItem: {
+    alignItems: "flex-start",
+  },
+  listItemText: {
+    marginTop: 0,
+  },
+  msgText: {
+    "& p": {
+      margin: 0,
+      fontSize: "0.7rem",
+      display: "flex",
+      //justifyContent: "center",
+      alignItems: "center",
+      color: "rgba(0,0, 0, 0.7)!important",
+    },
+    "& p span": {
+      fontSize: "0.6rem",
+      marginLeft: "1px",
+      color: "rgba(0,0, 0, 0.7)!important",
+    },
   },
 }));

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./styles";
 import Collapse from "@material-ui/core/Collapse";
 import Emoji from "emoji-mart/dist-modern/components/emoji/emoji";
+import { MoreVert } from "@material-ui/icons";
 const em = (emoji) => {
   return (
     <span
@@ -40,25 +47,29 @@ function Message(props) {
   };
 
   return (
-    <ListItem button>
+    <ListItem button className={classes.listItem}>
       <ListItemIcon>
         <Avatar className={classes.avatar} src={msg.user.imgUrl} />
       </ListItemIcon>
       <ListItemText
+        className={classes.listItemText}
         primary={
           <Typography className={classes.title}>{msg.user.fullName}</Typography>
         }
         secondary={
           <div className={classes.module}>
-            {" "}
             <div
-              contentEditable={true}
+              className={classes.msgText}
               dangerouslySetInnerHTML={{ __html: msg.text }}
             ></div>
-            {/*<Typography className={classes.msg}>{msg.text}</Typography>*/}
           </div>
         }
       />
+      <ListItemSecondaryAction>
+        <IconButton size={"small"}>
+          <MoreVert fontSize={"small"} />
+        </IconButton>
+      </ListItemSecondaryAction>
     </ListItem>
   );
 }

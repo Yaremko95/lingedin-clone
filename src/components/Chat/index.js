@@ -26,7 +26,7 @@ import Emoji from "emoji-mart/dist-modern/components/emoji/emoji";
 
 Quill.register({
   "modules/emoji-toolbar": QuillEmoji.ToolbarEmoji,
-  // 'modules/emoji-textarea': QuillEmoji.TextAreaEmoji,
+  "modules/emoji-textarea": QuillEmoji.TextAreaEmoji,
   "modules/emoji-shortname": QuillEmoji.ShortNameEmoji,
 });
 const toolbarContainer = [
@@ -93,9 +93,12 @@ function Chat(props) {
         </List>
         <div ref={messagesEndRef} />
       </div>
-      <div style={{ position: "absolute", bottom: "0", width: "100%" }}>
+      <div
+        style={{ position: "absolute", bottom: "0", width: "100%" }}
+        id={"quill-" + chat.id}
+      >
         <ReactQuill
-          style={{ width: "100%", border: "1px solid black", height: "50px" }}
+          style={{ width: "99%", border: "1px solid black", height: "50px" }}
           theme={"bubble"}
           value={text}
           onChange={(value) => setText(value)}
@@ -120,7 +123,9 @@ function Chat(props) {
             <MoodIcon
               className={classes.footerIcon}
               onClick={() => {
-                const icon = document.querySelector(".textarea-emoji-control");
+                const icon = document.querySelector(
+                  `#quill-${chat.id} .textarea-emoji-control`
+                );
                 icon.click();
                 //setShow(!show)
               }}

@@ -34,19 +34,21 @@ function ChatHistory(props) {
     }
   };
   return (
-    <div style={{ height: "290px", overflowY: "scroll" }}>
+    <>
       <ChatHeader toggleModal={props.toggleModal} show={props.show} />
+
       <div className={classes.searchContainer}>
         <Search handleChatOpen={handleChatOpen} />
       </div>
-
-      <List>
-        {" "}
-        {Object.keys(chats).map((chat) => (
-          <ChatConversation chat={chats[chat]} key={uniqid()} />
-        ))}
-      </List>
-    </div>
+      <div style={{ height: "298px", overflowY: "auto" }}>
+        <List>
+          {" "}
+          {Object.keys(chats).map((chat) => (
+            <ChatConversation chat={chats[chat]} key={uniqid()} />
+          ))}
+        </List>
+      </div>
+    </>
   );
 }
 

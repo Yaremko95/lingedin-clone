@@ -24,12 +24,23 @@ function ChatConversation(props) {
   const lastMsg = chat.messages[chat.messages.length - 1];
   const participant = chat.participants.find((p) => p.userId !== user.id);
   const classes = useStyles();
+  const unshiftUserName = () => {
+    if (lastMsg) {
+      return `<p> ${lastMsg.user.fullName}:</p>` + lastMsg.text;
+    }
+  };
+  unshiftUserName();
   return (
-    <ListItem button onClick={() => setChatOpen(chat.id)}>
+    <ListItem
+      button
+      onClick={() => setChatOpen(chat.id)}
+      className={classes.listItem}
+    >
       <ListItemIcon>
         <Avatar className={classes.avatar} src={participant.user.imgUrl} />
       </ListItemIcon>
       <ListItemText
+        className={classes.listItemText}
         primary={
           <Typography className={classes.title}>
             {participant.user.fullName}
@@ -38,13 +49,20 @@ function ChatConversation(props) {
         secondary={
           <div className={classes.module}>
             {" "}
-            <Typography className={classes.msg}>
-              {lastMsg && `${lastMsg.user.fullName}:  ${lastMsg.text}`}
-            </Typography>
+            {/*<span className={classes.msg}>*/}
+            {lastMsg && (
+              <p
+                className={classes.msgText}
+                dangerouslySetInnerHTML={{
+                  __html: unshiftUserName(),
+                }}
+              ></p>
+            )}
+            {/*</span>*/}
           </div>
         }
       />
-      <ListItemSecondaryAction>
+      <ListItemSecondaryAction className={classes.msgIcon}>
         <IconButton size={"small"}>
           <MoreVert fontSize={"small"} />
         </IconButton>

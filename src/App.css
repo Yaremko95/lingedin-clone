@@ -6,7 +6,8 @@
 }
 #textarea-emoji {
   top: -205px !important;
-  left:-130px
+  left:-130px;
+  z-index: 2000;
 }
 .emoji_completions {
   z-index: 1000;

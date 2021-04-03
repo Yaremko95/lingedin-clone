@@ -20,6 +20,6 @@ export const useStyles = makeStyles(({ offset, ...theme }) => ({
     overflowY: "auto",
   },
   searchContainer: {
-    padding: "8px 16px 0 16px",
+    padding: "8px 16px 8px 16px",
   },
 }));
