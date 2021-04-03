@@ -21,6 +21,7 @@ function SocketProvider({ children }) {
     setChatOpen,
     isHistoryOpen,
     setIsHistoryOpen,
+    addChat,
   } = useSocket();
   const { isAuthenticated } = useContext(AuthContext);
 

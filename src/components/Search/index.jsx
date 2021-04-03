@@ -5,44 +5,41 @@ import InputBase from "@material-ui/core/InputBase";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "./TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import backend from "../../clients/backemd.client";
+import Typography from "@material-ui/core/Typography";
 function Search(props) {
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState("");
-  const top100Films = ["hello", "ghgh"];
+  const [results, setResults] = useState([]);
+  const handleChange = async (query) => {
+    try {
+      setSearchQuery(query);
+      const { data } = await backend.get("/users?q=" + query);
+      // console.log(data);
+      setResults(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Autocomplete
       freeSolo
       id="free-solo-2-demo"
       disableClearable
-      options={top100Films.map((option) => option)}
+      //value={searchQuery}
+      inputValue={searchQuery}
+      onChange={(event, newValue) => {
+        props.handleChatOpen(newValue.id);
+      }}
+      onInputChange={(event, newInputValue) => {
+        //console.log(newInputValue);
+        handleChange(newInputValue);
+      }}
+      options={results}
+      getOptionLabel={(option) => option.fullName}
       renderInput={(params) => (
-        // <TextField
-        //   {...params}
-        //   renderInput={(params) => (
-        //     <div className={classes.search}>
-        //       <div className={classes.searchIcon}>
-        //         <SearchIcon />
-        //       </div>
-        //       <InputBase
-        //         {...params}
-        //         ref={params.InputProps.ref}
-        //         inputProps={params.inputProps}
-        //         value={searchQuery}
-        //         onChange={(e) => setSearchQuery(e.currentTarget.value)}
-        //         placeholder="Search…"
-        //         classes={{
-        //           root: classes.inputRoot,
-        //           input: classes.inputInput,
-        //         }}
-        //       />
-        //     </div>
-        //
-        //   )}
-        // />
         <TextField
           {...params}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.currentTarget.value)}
           placeholder={"Search..."}
           InputProps={{
             ...params.InputProps,

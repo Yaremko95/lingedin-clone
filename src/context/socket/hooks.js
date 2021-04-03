@@ -40,7 +40,14 @@ const useSocket = () => {
       }),
     [safeSetState]
   );
-
+  // const addChat = React.useCallback((chat) => {
+  //   safeSetState(
+  //     {
+  //       chats: { ...chats, [chat.id]: { ...chat, isOpen: false } },
+  //     },
+  //     [safeSetState]
+  //   );
+  // });
   const setChatOpen = (id) => {
     if (openedChats.find((chatId) => chatId === id)) {
       safeSetState({
@@ -83,6 +90,7 @@ const useSocket = () => {
     setChatOpen,
     isHistoryOpen,
     setIsHistoryOpen,
+    //addChat,
   };
 };
 
