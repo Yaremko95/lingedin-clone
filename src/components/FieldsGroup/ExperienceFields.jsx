@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import { PhotoCamera } from "@material-ui/icons";
 import ReactQuill from "react-quill";
+import { format, compareAsc } from "date-fns";
 import "react-quill/dist/quill.bubble.css";
 import {
   KeyboardDatePicker,
@@ -16,6 +17,7 @@ import DateFnsUtils from "@date-io/date-fns";
 function ExperienceFields(props) {
   const classes = useStyles();
   const { fields, file, onFieldsChange, onFileChange } = props;
+  console.log(fields);
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -100,9 +102,12 @@ function ExperienceFields(props) {
           id="datetime-local"
           label="Start date"
           type="date"
-          value={new Date(fields.startDate)}
-          onChange={(value) =>
-            onFieldsChange({ ...fields, ["endDate"]: value })
+          value={format(new Date(fields.startDate), "yyyy-MM-dd")}
+          onChange={(e) =>
+            onFieldsChange({
+              ...fields,
+              ["startDate"]: e.currentTarget.value,
+            })
           }
           className={classes.textField}
           InputLabelProps={{
@@ -135,7 +140,7 @@ function ExperienceFields(props) {
           id="datetime-local"
           label="End date"
           type="date"
-          value={new Date(fields.startDate)}
+          value={new Date(fields.endDate)}
           onChange={(value) =>
             onFieldsChange({ ...fields, ["endDate"]: value })
           }

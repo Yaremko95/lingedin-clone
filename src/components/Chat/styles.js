@@ -35,11 +35,15 @@ export const useStyles = makeStyles((theme) => ({
   },
   footerSectionWrapper: {
     display: "flex",
+    position: "relative",
   },
   footerIcon: {
     fontSize: "1.2rem",
 
     color: "rgba(0, 0, 0, 0.6)",
     margin: theme.spacing(0, 1),
+  },
+  emojiSection: {
+    position: "absolute",
   },
 }));

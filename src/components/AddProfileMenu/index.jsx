@@ -56,7 +56,7 @@ function AddProfileMenu(props) {
           title: "",
           company: "",
           location: "",
-          startDate: new Date(),
+          startDate: new Date().toDateString(),
           endDate: new Date(),
           role: "",
           description: "",

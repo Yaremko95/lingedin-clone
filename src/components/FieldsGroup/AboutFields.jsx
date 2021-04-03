@@ -13,9 +13,7 @@ function AboutFields(props) {
         <ReactQuill
           theme={"bubble"}
           value={fields["about"] || ""}
-          onChange={(value) =>
-            onFieldsChange({ ...fields, ["description"]: value })
-          }
+          onChange={(value) => onFieldsChange({ ...fields, ["about"]: value })}
         />
       </Grid>
     </Grid>
